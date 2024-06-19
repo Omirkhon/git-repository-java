@@ -12,11 +12,11 @@ public class Test {
 
         Subtask subtask = new Subtask("Пропылесосить", "Описание", epic);
         manager.createSubtask(subtask);
-        subtask.setStatus("IN_PROGRESS");
+        subtask.setStatus(Status.IN_PROGRESS);
 
         Subtask subtaskTwo = new Subtask("Помыть посуду", "Описание", epic);
-        manager.createSubtask(subtask);
-        subtaskTwo.setStatus("NEW");
+        manager.createSubtask(subtaskTwo);
+        subtaskTwo.setStatus(Status.NEW);
 
         System.out.println(manager.getTasks());
         System.out.println(manager.getEpics());
@@ -24,8 +24,6 @@ public class Test {
         System.out.println(epic.getStatus());
         System.out.println(manager.getTaskById(1));
         System.out.println(manager.getEpicById(2));
-        System.out.println(manager.getSubtasksByEpic(epic));
-        manager.removeAll();
-        System.out.println(manager.getTasks());
+        System.out.println(manager.getSubtaskById(3));
     }
 }

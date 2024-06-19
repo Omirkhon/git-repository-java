@@ -17,21 +17,21 @@ public class Epic extends Task {
         int newCount = 0;
         int doneCount = 0;
         if (subtasks.isEmpty()) {
-            epic.setStatus("NEW");
+            epic.setStatus(Status.NEW);
         } else {
             for (Subtask subtask : subtasks) {
-                if (subtask.getStatus().equals("NEW")) {
+                if (subtask.getStatus() == Status.NEW) {
                     newCount++;
-                } else if (subtask.getStatus().equals("DONE")) {
+                } else if (subtask.getStatus() == Status.DONE) {
                     doneCount++;
                 }
             }
             if (newCount == subtasks.size()) {
-                epic.setStatus("NEW");
+                epic.setStatus(Status.NEW);
             } else if (doneCount == subtasks.size()) {
-                epic.setStatus("DONE");
+                epic.setStatus(Status.DONE);
             } else {
-                epic.setStatus("IN_PROGRESS");
+                epic.setStatus(Status.IN_PROGRESS);
             }
         }
     }

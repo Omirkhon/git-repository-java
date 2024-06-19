@@ -13,7 +13,7 @@ public class Subtask extends Task {
     }
 
     @Override
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         super.setStatus(status);
         epic.status(epic);
     }
