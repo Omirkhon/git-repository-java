@@ -2,7 +2,8 @@ package JavaTaskTracker;
 
 public class Test {
     public static void main(String[] args) {
-        TaskManager manager = new TaskManager();
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
         Task task = new Task("Приготовить кушать", "описание задачи 1");
         manager.createTask(task);
@@ -17,6 +18,8 @@ public class Test {
         Subtask subtaskTwo = new Subtask("Помыть посуду", "Описание", epic);
         manager.createSubtask(subtaskTwo);
         subtaskTwo.setStatus(Status.NEW);
+        System.out.println(manager.getSubtasks());
+        manager.removeEpicById(2);
 
         System.out.println(manager.getTasks());
         System.out.println(manager.getEpics());
@@ -25,5 +28,7 @@ public class Test {
         System.out.println(manager.getTaskById(1));
         System.out.println(manager.getEpicById(2));
         System.out.println(manager.getSubtaskById(3));
+
+        System.out.println(historyManager.getHistory());
     }
 }
