@@ -21,6 +21,9 @@ public class HandMadeArrayList<T> {
         if (elements.length == size) {
             grow();
         }
+        for (int i = size; i > index; i--) {
+            elements[i] = elements[i - 1];
+        }
         elements[index] = element;
         size++;
     }
