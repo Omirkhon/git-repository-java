@@ -1,5 +1,7 @@
 package HomeTask;
 
+import java.util.Objects;
+
 public class Potato implements Comparable<Potato> {
 
     public final int id;
@@ -44,10 +46,10 @@ public class Potato implements Comparable<Potato> {
         return id == potato.id;
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id);
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @Override
     public String toString() {
