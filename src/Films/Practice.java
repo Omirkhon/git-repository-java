@@ -29,6 +29,8 @@ public class Practice {
     public static void printInfo(Map<String, Map<String, Double>> films) {
         double max = 0;
         double max2 = 0;
+        String maxRatingFilm = null;
+        String maxRatingFilm2 = null;
         for (String film : films.keySet()) {
             System.out.println("Фильм: "+film);
             System.out.println("Оценки:");
@@ -37,15 +39,17 @@ public class Practice {
                 if(val.equals("IMDb")) {
                     if (films.get(film).get(val)>max) {
                         max = films.get(film).get(val);
+                        maxRatingFilm = val;
                     }
                 } else if (val.equals("Kinopoisk")) {
                     if (films.get(film).get(val)>max2) {
                         max2 = films.get(film).get(val);
+                        maxRatingFilm2 = val;
                     }
                 }
             }
         }
-        System.out.println(max);
-        System.out.println(max2);
+        System.out.println(maxRatingFilm+" ("+max+")");
+        System.out.println(maxRatingFilm2+" ("+max2+")");
     }
 }
