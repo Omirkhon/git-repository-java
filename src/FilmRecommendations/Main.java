@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         movieTreeMap.put(1, new Movie(1, "The Shawshank Redemption", "Drama",
                 "Tim Robbins", "Morgan Freeman", "Frank Darabont"));
-        movieTreeMap.put(2, new Movie(2,"The Dark Knight", "Action",
+        movieTreeMap.put(2, new Movie(2, "The Dark Knight", "Action",
                 "Christian Bale", "Heath Ledger", "Christopher Nolan"));
         movieTreeMap.put(3, new Movie(3, "Inception", "Sci-Fi",
                 "Leonardo DiCaprio", "Joseph Gordon-Levitt", "Christopher Nolan"));
@@ -28,10 +28,10 @@ public class Main {
                 if (watchedMovie.title.equals(movieTreeMap.get(movie).title)) {
                     continue;
                 }
-                if (watchedMovie.genre.equals(movieTreeMap.get(movie).genre)||watchedMovie.actors.contains(movieTreeMap.get(movie).actors.get(0))
-                        ||watchedMovie.actors.contains(movieTreeMap.get(movie).actors.get(1))
-                ||watchedMovie.director.equals(movieTreeMap.get(movie).director)) {
-                    System.out.println("id: " + movie + ", title: "+movieTreeMap.get(movie).title);
+                if (watchedMovie.genre.equals(movieTreeMap.get(movie).genre)
+                        || watchedMovie.actors.containsAll(movieTreeMap.get(movie).actors)
+                        || watchedMovie.director.equals(movieTreeMap.get(movie).director)) {
+                    System.out.println("id: " + movie + ", title: " + movieTreeMap.get(movie).title);
                 }
             }
         }
