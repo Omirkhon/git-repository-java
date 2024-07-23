@@ -28,10 +28,11 @@ public class Main {
                 if (watchedMovie.title.equals(movieTreeMap.get(movie).title)) {
                     continue;
                 }
-                if (watchedMovie.genre.equals(movieTreeMap.get(movie).genre)
-                        || watchedMovie.actors.containsAll(movieTreeMap.get(movie).actors)
-                        || watchedMovie.director.equals(movieTreeMap.get(movie).director)) {
-                    System.out.println("id: " + movie + ", title: " + movieTreeMap.get(movie).title);
+                Movie currentMovie = movieTreeMap.get(movie);
+                if (watchedMovie.genre.equals(currentMovie.genre)
+                        || watchedMovie.actors.containsAll(currentMovie.actors)
+                        || watchedMovie.director.equals(currentMovie.director)) {
+                    System.out.println("id: " + movie + ", title: " + currentMovie.title);
                 }
             }
         }
