@@ -31,7 +31,7 @@ public class GradesReversed {
     }
 
     public String serializeGrades(String[] grades) {
-        String[] list = new String[3];
+        String[] list = new String[grades.length];
         for (int i = 0; i < grades.length; i++) {
             String[] split = grades[i].split(" ");
             list[i] = String.join(",", split[0].toLowerCase(), split[1].toLowerCase(), split[2], gradeStringToInt(split[4]));
