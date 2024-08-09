@@ -50,16 +50,11 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getTasks() {
         Node current = head;
         List<Task> list = new ArrayList<>();
-        if(nodeMap.isEmpty()) {
-            System.out.println("Заданий нет");
-            return null;
-        } else {
-            while (current != null) {
-                list.add(current.data);
-                current = current.next;
-            }
-            return list;
+        while (current != null) {
+            list.add(current.data);
+            current = current.next;
         }
+        return list;
     }
 
     @Override
