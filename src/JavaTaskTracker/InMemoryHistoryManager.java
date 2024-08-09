@@ -19,7 +19,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
-        if (getHistory().contains(task)) {
+        if (getHistory()!=null && getHistory().contains(task)) {
             remove(task.getId());
         }
         if (nodeMap.size()>=limit) {
