@@ -1,15 +1,17 @@
 package JavaTaskTracker;
 
-import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Epic extends Task {
-    private ArrayList<Subtask> subtasks = new ArrayList<>();
+    private Map<Integer, Subtask> subtasks = new HashMap<>();
 
     public Epic(String title, String description) {
         super(title, description);
     }
 
-    public ArrayList<Subtask> getSubtasks() {
+    public Map<Integer, Subtask> getSubtasks() {
         return subtasks;
     }
 
@@ -19,7 +21,7 @@ public class Epic extends Task {
         if (subtasks.isEmpty()) {
             epic.setStatus(Status.NEW);
         } else {
-            for (Subtask subtask : subtasks) {
+            for (Subtask subtask : subtasks.values()) {
                 if (subtask.getStatus() == Status.NEW) {
                     newCount++;
                 } else if (subtask.getStatus() == Status.DONE) {
