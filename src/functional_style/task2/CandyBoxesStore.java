@@ -12,7 +12,10 @@ public class CandyBoxesStore {
 
         List<Candy> candies = List.of(candy1, candy2, candy3, candy4);
 
-        List<Candy> candiesForBox = candies.stream().filter(CandyBox::isProducerAllowed).sorted(Candy::compareByName).toList();
+        List<Candy> candiesForBox = candies.stream()
+                .filter(CandyBox::isProducerAllowed)
+                .map(candy -> new Candy(candy.name, candy.producer, candy.price-5, candy.amountSold, candy.alternateNames))
+                .sorted(Candy::compareByName).toList();
 
         CandyBox candyBox = new CandyBox("С Новым Годом", candiesForBox);
 
