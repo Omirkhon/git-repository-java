@@ -1,10 +1,12 @@
 package functional_style.task3;
 
 import java.util.Optional;
+import java.util.Scanner;
 
 public class OptionalNameDemo {
     static Optional<String> requestUserName() {
-        String username = "";
+        Scanner scanner = new Scanner(System.in);
+        String username = scanner.nextLine();
 
         if (username.isBlank()) {
             return Optional.empty();
