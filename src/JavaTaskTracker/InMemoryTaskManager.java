@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
     private int uniqueId = 1;
-    private HistoryManager historyManager = new InMemoryHistoryManager();
+    public static HistoryManager historyManager = new InMemoryHistoryManager();
 
     @Override
     public Map<Integer, Task> getTasks() {
@@ -60,6 +60,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void update(int id, Task updatedTask) {
         if (tasks.containsKey(id)) {
             tasks.put(id, updatedTask);
+            historyManager.add(updatedTask);
             return;
         }
         System.out.println("Не удалось обновить");
@@ -68,6 +69,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         if (tasks.containsKey(id)) {
+            historyManager.add(tasks.get(id));
             tasks.remove(id);
             return;
         }
@@ -77,6 +79,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeEpicById(int id) {
         if (epics.containsKey(id)) {
+            historyManager.add(epics.get(id));
             epics.remove(id);
             return;
         }
@@ -86,6 +89,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeSubtasksById(int id) {
         if (subtasks.containsKey(id)) {
+            historyManager.add(subtasks.get(id));
             subtasks.remove(id);
             return;
         }
@@ -95,17 +99,20 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void createTask(Task task) {
         tasks.put(getUniqueId(), task);
+        historyManager.add(task);
     }
 
     @Override
     public void createEpic(Epic epic) {
         epics.put(getUniqueId(), epic);
+        historyManager.add(epic);
     }
 
     @Override
     public void createSubtask(Subtask subtask) {
         if(epics.containsValue(subtask.getEpic())) {
             subtasks.put(getUniqueId(), subtask);
+            historyManager.add(subtask);
         }
     }
 
@@ -121,7 +128,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-        System.out.println("Недавно просмотренные задачи: ");
-        return history;
+        return historyManager.getHistory();
     }
 }

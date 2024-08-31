@@ -2,8 +2,8 @@ package JavaTaskTracker;
 
 public class Test {
     public static void main(String[] args) {
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         InMemoryTaskManager manager = new InMemoryTaskManager();
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
         Task task = new Task("Приготовить кушать", "описание задачи 1");
         manager.createTask(task);

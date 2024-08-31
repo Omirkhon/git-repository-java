@@ -10,11 +10,13 @@ public class InMemoryHistoryManager implements HistoryManager {
     private final Map<Integer, Node> nodeMap = new HashMap<>();
     private Node head;
     private Node tail;
+    private int currentHistorySize = 0;
     private static final int limit = 10;
 
     @Override
     public void remove(int id) {
-        history.remove(id);
+        removeNode(nodeMap.get(id));
+        nodeMap.remove(id);
     }
 
     @Override
@@ -44,6 +46,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         } else {
             head = newNode;
         }
+        nodeMap.put(task.getId(), tail);
+        currentHistorySize++;
     }
 
     @Override
@@ -72,6 +76,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             node.next.prev = node.prev;
             node.prev.next = node.next;
         }
+        currentHistorySize--;
     }
 }
 

@@ -7,6 +7,7 @@ public class Subtask extends Task {
         super(title, description);
         this.epic = epic;
         epic.getSubtasks().put(getId(),this);
+        setType(Type.SUBTASK);
     }
     public Epic getEpic() {
         return epic;
