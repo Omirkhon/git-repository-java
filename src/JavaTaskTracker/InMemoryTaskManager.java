@@ -1,11 +1,19 @@
 package JavaTaskTracker;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
+    public Map<Integer, Task> tasks = new HashMap();
+    public Map<Integer, Epic> epics = new HashMap();
+    public Map<Integer, Subtask> subtasks = new HashMap<>();
     private int uniqueId = 1;
-    public static HistoryManager historyManager = new InMemoryHistoryManager();
+    public HistoryManager historyManager;
+
+    public InMemoryTaskManager(HistoryManager historyManager) {
+        this.historyManager = historyManager;
+    }
 
     @Override
     public Map<Integer, Task> getTasks() {
@@ -31,7 +39,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(int id) {
-        if (tasks.containsKey(id) && !tasks.isEmpty()) {
+        if (tasks.containsKey(id)) {
             historyManager.add(tasks.get(id));
             return tasks.get(id);
         }
@@ -60,7 +68,6 @@ public class InMemoryTaskManager implements TaskManager {
     public void update(int id, Task updatedTask) {
         if (tasks.containsKey(id)) {
             tasks.put(id, updatedTask);
-            historyManager.add(updatedTask);
             return;
         }
         System.out.println("Не удалось обновить");
@@ -69,7 +76,6 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         if (tasks.containsKey(id)) {
-            historyManager.add(tasks.get(id));
             tasks.remove(id);
             return;
         }
@@ -79,7 +85,6 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeEpicById(int id) {
         if (epics.containsKey(id)) {
-            historyManager.add(epics.get(id));
             epics.remove(id);
             return;
         }
@@ -89,7 +94,6 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeSubtasksById(int id) {
         if (subtasks.containsKey(id)) {
-            historyManager.add(subtasks.get(id));
             subtasks.remove(id);
             return;
         }
@@ -98,21 +102,21 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createTask(Task task) {
-        tasks.put(getUniqueId(), task);
-        historyManager.add(task);
+        task.setId(getUniqueId());
+        tasks.put(task.getId(), task);
     }
 
     @Override
     public void createEpic(Epic epic) {
-        epics.put(getUniqueId(), epic);
-        historyManager.add(epic);
+        epic.setId(getUniqueId());
+        epics.put(epic.getId(), epic);
     }
 
     @Override
     public void createSubtask(Subtask subtask) {
+        subtask.setId(getUniqueId());
         if(epics.containsValue(subtask.getEpic())) {
-            subtasks.put(getUniqueId(), subtask);
-            historyManager.add(subtask);
+            subtasks.put(subtask.getId(), subtask);
         }
     }
 

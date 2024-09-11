@@ -8,17 +8,19 @@ import java.util.Map;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
+
     private static final String FILE_PATH = "task_tracker_directory/tasks.csv";
     Path path;
 
-    public static void main(String[] args) {
-
-    }
-
-    public FileBackedTasksManager(Path path) {
+    public FileBackedTasksManager(Path path, HistoryManager historyManager) {
+        super(historyManager);
         this.path = path;
     }
 
+    public static void main(String[] args) {
+        FileBackedTasksManager fileBackedTasksManager = loadFromFile(Path.of(FILE_PATH));
+        System.out.println(fileBackedTasksManager.tasks);
+    }
     public void save() {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
@@ -40,6 +42,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Task fromString(String value) {
         String[] split = value.split(",");
         Task task;
+//        Type type = Type.valueOf(split[1]);
+//        switch (type) {
+//            case EPIC -> {
+//                return new Epic();
+//            }
+//        }
         if (split[1].equals(Type.TASK.name())) {
             task = new Task(split[2], split[4]);
             task.setType(Type.TASK);
@@ -64,7 +72,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     static FileBackedTasksManager loadFromFile(Path path) {
-        FileBackedTasksManager file = new FileBackedTasksManager(path);
+        FileBackedTasksManager file = new FileBackedTasksManager(path, Managers.getDefaultHistory());
         try {
             BufferedReader bf = new BufferedReader(new FileReader(FILE_PATH));
 
@@ -79,7 +87,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         return file;
     }
 
-    static String historyToString(HistoryManager manager) {
+    static String historyToString(HistoryManager historyManager) {
         List<Task> history = historyManager.getHistory();
         StringBuilder builder = new StringBuilder();
         if (history.isEmpty()) {

@@ -21,7 +21,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
-        if (getHistory()!=null && getHistory().contains(task)) {
+        if (nodeMap.containsKey(task.getId())) {
             remove(task.getId());
         }
         if (nodeMap.size()>=limit) {
@@ -32,7 +32,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-        System.out.println("Недавно просмотренные задачи: ");
         return getTasks();
     }
 

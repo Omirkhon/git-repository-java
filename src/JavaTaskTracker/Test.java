@@ -2,8 +2,7 @@ package JavaTaskTracker;
 
 public class Test {
     public static void main(String[] args) {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+        TaskManager manager = Managers.getDefault();
 
         Task task = new Task("Приготовить кушать", "описание задачи 1");
         manager.createTask(task);
@@ -41,6 +40,6 @@ public class Test {
         System.out.println(manager.getEpicById(7));
         System.out.println(manager.getSubtaskById(6));
 
-        System.out.println(historyManager.getHistory());
+        System.out.println(manager.getHistory());
     }
 }

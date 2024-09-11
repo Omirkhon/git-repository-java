@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface TaskManager {
-    public Map<Integer, Task> tasks = new HashMap();
-    public Map<Integer, Epic> epics = new HashMap();
-    public Map<Integer, Subtask> subtasks = new HashMap<>();
     List<Task> history = new ArrayList<>();
     public void removeAll();
     public Map<Integer, Task> getTasks();
