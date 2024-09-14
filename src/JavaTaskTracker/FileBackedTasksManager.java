@@ -42,12 +42,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Task fromString(String value) {
         String[] split = value.split(",");
         Task task;
-//        Type type = Type.valueOf(split[1]);
-//        switch (type) {
-//            case EPIC -> {
-//                return new Epic();
-//            }
-//        }
         if (split[1].equals(Type.TASK.name())) {
             task = new Task(split[2], split[4]);
             task.setType(Type.TASK);
