@@ -1,0 +1,7 @@
+1, TASK, Приготовить кушать, NEW, Description описание задачи 1
+2, TASK, Сделать домашку, NEW, Description описание задачи 2
+3, EPIC, Убраться дома, NEW, Description описание эпика 1
+7, EPIC, Сходить за покупками, NEW, Description описание эпика 2
+4, SUBTASK, Пропылесосить, IN_PROGRESS, Description Описание подзадачи 1
+5, SUBTASK, Помыть посуду, NEW, Description Описание подзадачи 2
+6, SUBTASK, Помыть полы, NEW, Description Описание подзадачи 3

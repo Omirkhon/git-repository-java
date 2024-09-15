@@ -1,5 +1,9 @@
 package JavaTaskTracker;
 
+import JavaTaskTracker.model.*;
+import JavaTaskTracker.service.*;
+import JavaTaskTracker.utils.*;
+
 public class Test {
     public static void main(String[] args) {
         TaskManager manager = Managers.getDefault();

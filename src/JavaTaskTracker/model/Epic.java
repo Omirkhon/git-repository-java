@@ -1,4 +1,4 @@
-package JavaTaskTracker;
+package JavaTaskTracker.model;
 
 
 import java.util.HashMap;

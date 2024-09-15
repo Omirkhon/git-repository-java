@@ -1,5 +1,6 @@
-package JavaTaskTracker;
+package JavaTaskTracker.service;
 
+import JavaTaskTracker.model.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

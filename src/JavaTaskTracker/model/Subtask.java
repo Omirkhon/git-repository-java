@@ -1,4 +1,4 @@
-package JavaTaskTracker;
+package JavaTaskTracker.model;
 
 public class Subtask extends Task {
     private Epic epic;

@@ -1,4 +1,9 @@
-package JavaTaskTracker;
+package JavaTaskTracker.utils;
+
+import JavaTaskTracker.service.FileBackedTasksManager;
+import JavaTaskTracker.service.HistoryManager;
+import JavaTaskTracker.service.InMemoryHistoryManager;
+import JavaTaskTracker.service.TaskManager;
 
 import java.nio.file.Paths;
 import java.nio.file.Path;

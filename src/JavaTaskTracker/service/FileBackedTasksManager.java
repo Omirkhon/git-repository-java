@@ -1,5 +1,7 @@
-package JavaTaskTracker;
+package JavaTaskTracker.service;
 
+import JavaTaskTracker.utils.*;
+import JavaTaskTracker.model.*;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.Map;
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
-    private static final String FILE_PATH = "task_tracker_directory/tasks.csv";
+    private static final String FILE_PATH = "src/JavaTaskTracker/task_tracker_directory/tasks.csv";
     Path path;
 
     public FileBackedTasksManager(Path path, HistoryManager historyManager) {
@@ -26,12 +28,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
                 fileWriter.write(toString(task.getValue()));
+                fileWriter.write("\n");
             }
             for (Map.Entry<Integer, Epic> epic : epics.entrySet()) {
                 fileWriter.write(toString(epic.getValue()));
+                fileWriter.write("\n");
             }
             for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
                 fileWriter.write(toString(subtask.getValue()));
+                fileWriter.write("\n");
             }
             fileWriter.close();
         } catch (IOException exception) {
@@ -148,5 +153,3 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         save();
     }
 }
-
-class ManagerSaveException extends RuntimeException {}

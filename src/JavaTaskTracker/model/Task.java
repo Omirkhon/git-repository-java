@@ -1,4 +1,4 @@
-package JavaTaskTracker;
+package JavaTaskTracker.model;
 
 public class Task {
     private int id;

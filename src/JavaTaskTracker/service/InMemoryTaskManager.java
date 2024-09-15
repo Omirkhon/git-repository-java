@@ -1,4 +1,8 @@
-package JavaTaskTracker;
+package JavaTaskTracker.service;
+
+import JavaTaskTracker.model.Epic;
+import JavaTaskTracker.model.Subtask;
+import JavaTaskTracker.model.Task;
 
 import java.util.HashMap;
 import java.util.List;
