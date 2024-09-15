@@ -161,4 +161,16 @@ public class BankAccountTest {
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> account.transfer(otherAccount, -250));
         assertEquals("Сумма не может быть отрицательной.", exception.getMessage());
     }
+
+    @Test
+    public void shouldTransferWhenAllIsMet() {
+        BankAccount account = new BankAccount("a", "b");
+        account.activate("KZT");
+        BankAccount otherAccount = new BankAccount("c", "d");
+        otherAccount.activate("KZT");
+        account.deposit(800);
+        account.transfer(otherAccount, 500);
+        assertEquals(300, account.getAmount());
+        assertEquals(500, otherAccount.getAmount());
+    }
 }
