@@ -1,11 +1,15 @@
 package JavaTaskTracker.model;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private int id;
     private String title;
     private String description;
     private Status status;
     private Type type;
+    private int duration;
+    private LocalDateTime startTime;
 
     public Task(String title, String description) {
         this.title = title;
@@ -52,6 +56,10 @@ public class Task {
 
     public Type getType() {
         return type;
+    }
+
+    public int getEndTime() {
+        return this.startTime.minusMinutes(this.duration).getSecond();
     }
 
     @Override

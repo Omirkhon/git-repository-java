@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface TaskManager {
-    List<Task> history = new ArrayList<>();
     public void removeAll();
     public Map<Integer, Task> getTasks();
     public Map<Integer, Epic> getEpics();
