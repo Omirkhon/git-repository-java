@@ -106,50 +106,58 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createSubtask(Subtask subtask) {
-        super.createSubtask(subtask);
+    public String createSubtask(Subtask subtask) {
+        String message = super.createSubtask(subtask);
         save();
+        return message;
     }
 
     @Override
-    public void createTask(Task task) {
-        super.createTask(task);
+    public String createTask(Task task) {
+        String message = super.createTask(task);
         save();
+        return message;
     }
 
     @Override
-    public void createEpic(Epic epic) {
-        super.createEpic(epic);
+    public String createEpic(Epic epic) {
+        String message = super.createEpic(epic);
         save();
+        return message;
     }
 
     @Override
-    public void update(int id, Task updatedTask) {
-        super.update(id, updatedTask);
+    public String update(int id, Task updatedTask) {
+        String message = super.update(id, updatedTask);
         save();
+        return message;
     }
 
     @Override
-    public void removeTaskById(int id) {
-        super.removeTaskById(id);
+    public String removeTaskById(int id) {
+        String message = super.removeTaskById(id);
         save();
+        return message;
     }
 
     @Override
-    public void removeEpicById(int id) {
-        super.removeEpicById(id);
+    public String removeEpicById(int id) {
+        String message = super.removeEpicById(id);
         save();
+        return message;
     }
 
     @Override
-    public void removeSubtasksById(int id) {
-        super.removeSubtasksById(id);
+    public String removeSubtasksById(int id) {
+        String message = super.removeSubtasksById(id);
         save();
+        return message;
     }
 
     @Override
-    public void removeAll() {
-        super.removeAll();
+    public String removeAll() {
+        String message = super.removeAll();
         save();
+        return message;
     }
 }
