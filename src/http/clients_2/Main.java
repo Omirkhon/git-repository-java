@@ -45,7 +45,7 @@ public class Main {
         System.out.print("Введите валюту (например: USD, EUR): ");
         String currency = SCANNER.next();
 
-        if (URI(currency).statusCode() == 200) {
+        if (getResponse(currency).statusCode() == 200) {
             currencies.add(currency);
         } else {
             System.out.println("Введена некорректная валюта");
@@ -62,7 +62,7 @@ public class Main {
         String currency = SCANNER.next();
 
         if (currencies.contains(currency)) {
-            JsonElement jsonElement = JsonParser.parseString(URI(currency).body());
+            JsonElement jsonElement = JsonParser.parseString(getResponse(currency).body());
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
             JsonObject object = jsonObject.get("rates").getAsJsonObject();
@@ -75,7 +75,7 @@ public class Main {
         }
     }
 
-    public static HttpResponse<String> URI(String currency) throws IOException, InterruptedException {
+    public static HttpResponse<String> getResponse(String currency) throws IOException, InterruptedException {
         URI uri = URI.create("https://api.apilayer.com/exchangerates_data/latest?base="+currency+"&symbols=KZT&apikey=iISN69jOgAmSSuWq5GG68tko23CuqMLk");
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
