@@ -3,10 +3,9 @@ package JavaTaskTracker.service;
 import JavaTaskTracker.model.Epic;
 import JavaTaskTracker.model.Subtask;
 import JavaTaskTracker.model.Task;
+import JavaTaskTracker.utils.NewComparator;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     public Map<Integer, Task> tasks = new HashMap<>();
@@ -17,6 +16,24 @@ public class InMemoryTaskManager implements TaskManager {
 
     public InMemoryTaskManager(HistoryManager historyManager) {
         this.historyManager = historyManager;
+    }
+
+    @Override
+    public void compareTasks() {
+        List<Task> listOfTasks = new ArrayList<>();
+
+        for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
+            listOfTasks.add(task.getValue());
+        }
+        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
+            listOfTasks.add(subtask.getValue());
+        }
+        for (Map.Entry<Integer, Epic> epic : epics.entrySet()) {
+            listOfTasks.add(epic.getValue());
+        }
+
+        Collections.sort(listOfTasks, new NewComparator());
+        System.out.println(listOfTasks);
     }
 
     @Override
@@ -35,11 +52,10 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public String removeAll() {
+    public void removeAll() {
         tasks.clear();
         epics.clear();
         subtasks.clear();
-        return "Все задачи успешно удалены";
     }
 
     @Override
@@ -70,63 +86,51 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public String update(int id, Task updatedTask) {
+    public void update(int id, Task updatedTask) {
         if (tasks.containsKey(id)) {
             tasks.put(id, updatedTask);
-            return "Задача обновлена";
         }
-        return "Не удалось обновить";
     }
 
     @Override
-    public String removeTaskById(int id) {
+    public void removeTaskById(int id) {
         if (tasks.containsKey(id)) {
             tasks.remove(id);
-            return "Задача удалена";
         }
-        return "Не удалось удалить";
     }
 
     @Override
-    public String removeEpicById(int id) {
+    public void removeEpicById(int id) {
         if (epics.containsKey(id)) {
             epics.remove(id);
-            return "Задача удалена";
         }
-        return "Не удалось удалить";
     }
 
     @Override
-    public String removeSubtasksById(int id) {
+    public void removeSubtasksById(int id) {
         if (subtasks.containsKey(id)) {
             subtasks.remove(id);
-            return "Задача удалена";
         }
-        return "Не удалось удалить";
     }
 
     @Override
-    public String createTask(Task task) {
+    public void createTask(Task task) {
         task.setId(getUniqueId());
         tasks.put(task.getId(), task);
-        return "Задача создана";
     }
 
     @Override
-    public String createEpic(Epic epic) {
+    public void createEpic(Epic epic) {
         epic.setId(getUniqueId());
         epics.put(epic.getId(), epic);
-        return "Задача создана";
     }
 
     @Override
-    public String createSubtask(Subtask subtask) {
+    public void createSubtask(Subtask subtask) {
         subtask.setId(getUniqueId());
         if(epics.containsValue(subtask.getEpic())) {
             subtasks.put(subtask.getId(), subtask);
-            return "Задача создана";
         }
-        return "Не удалось создать";
     }
 
     @Override

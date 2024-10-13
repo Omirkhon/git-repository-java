@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface TaskManager {
-    String removeAll();
+    void compareTasks();
+    void removeAll();
     Map<Integer, Task> getTasks();
     Map<Integer, Epic> getEpics();
     Map<Integer, Subtask> getSubtasks();
@@ -19,19 +20,19 @@ public interface TaskManager {
 
     Subtask getSubtaskById(int id);
 
-    String update(int id, Task updatedTask);
+    void update(int id, Task updatedTask);
 
-    String removeTaskById(int id);
+    void removeTaskById(int id);
 
-    String removeEpicById(int id);
+    void removeEpicById(int id);
 
-    String removeSubtasksById(int id);
+    void removeSubtasksById(int id);
 
-    String createTask(Task task);
+    void createTask(Task task);
 
-    String createEpic(Epic epic);
+    void createEpic(Epic epic);
 
-    String createSubtask(Subtask subtask);
+    void createSubtask(Subtask subtask);
 
     Map<Integer, Subtask> getSubtasksByEpic(Epic epic);
 

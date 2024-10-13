@@ -1,5 +1,7 @@
 package JavaTaskTracker.model;
 
+import java.time.LocalDateTime;
+
 public class Subtask extends Task {
     private Epic epic;
 
@@ -9,6 +11,14 @@ public class Subtask extends Task {
         epic.getSubtasks().put(getId(),this);
         setType(Type.SUBTASK);
     }
+
+    public Subtask(String title, String description, Epic epic, LocalDateTime startTime, int duration) {
+        super(title, description, startTime, duration);
+        this.epic = epic;
+        epic.getSubtasks().put(getId(),this);
+        setType(Type.SUBTASK);
+    }
+
     public Epic getEpic() {
         return epic;
     }

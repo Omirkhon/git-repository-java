@@ -1,15 +1,48 @@
 package JavaTaskTracker.model;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import JavaTaskTracker.utils.NewComparator;
+
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Epic extends Task {
+    LocalDateTime endTime;
     private Map<Integer, Subtask> subtasks = new HashMap<>();
 
     public Epic(String title, String description) {
         super(title, description);
         setType(Type.EPIC);
+    }
+
+    @Override
+    public int getDuration() {
+        int duration = 0;
+        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
+            duration += subtask.getValue().getDuration();
+        }
+        return duration;
+    }
+
+    @Override
+    public LocalDateTime getStartTime() {
+        List<Task> listOfSubtasks = new ArrayList<>();
+
+        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
+            listOfSubtasks.add(subtask.getValue());
+        }
+
+        Collections.sort(listOfSubtasks, new NewComparator());
+        if (listOfSubtasks.isEmpty()) {
+            return null;
+        } else {
+            return listOfSubtasks.get(0).getStartTime();
+        }
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return getStartTime().plusMinutes(getDuration());
     }
 
     public Map<Integer, Subtask> getSubtasks() {

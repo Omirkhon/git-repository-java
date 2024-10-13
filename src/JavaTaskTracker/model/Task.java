@@ -8,14 +8,39 @@ public class Task {
     private String description;
     private Status status;
     private Type type;
-    private int duration;
     private LocalDateTime startTime;
+    private int duration;
 
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
         this.status = Status.NEW;
         setType(Type.TASK);
+    }
+
+    public Task(String title, String description, LocalDateTime startTime, int duration) {
+        this.title = title;
+        this.description = description;
+        this.status = Status.NEW;
+        setType(Type.TASK);
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public int getId() {
@@ -58,8 +83,8 @@ public class Task {
         return type;
     }
 
-    public int getEndTime() {
-        return this.startTime.minusMinutes(this.duration).getSecond();
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration);
     }
 
     @Override
