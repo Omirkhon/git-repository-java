@@ -22,7 +22,7 @@ public class Test {
         manager.createEpic(epic);
 
         Subtask subtask = new Subtask("Пропылесосить", " Описание подзадачи 1", epic,
-                LocalDateTime.of(2024, 7, 18, 10, 30), 60);
+                LocalDateTime.of(2024, 7, 18, 10, 30), 59);
         manager.createSubtask(subtask);
         subtask.setStatus(Status.IN_PROGRESS);
 

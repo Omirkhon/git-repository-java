@@ -31,10 +31,10 @@ public class InMemoryTaskManager implements TaskManager {
         boolean isIntersection = true;
         List<Task> prioritizedTasks = getPrioritizedTasks();
 
-        for (Task taskOfTheList : prioritizedTasks) {
-            if (prioritizedTasks.isEmpty()) {
-                return false;
-            } else {
+        if (prioritizedTasks.isEmpty()) {
+            return false;
+        } else {
+            for (Task taskOfTheList : prioritizedTasks) {
                 if (task.getStartTime() == null) {
                     isIntersection = false;
                     break;
