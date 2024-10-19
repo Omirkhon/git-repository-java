@@ -8,6 +8,7 @@ public class Subtask extends Task {
     public Subtask(String title, String description, Epic epic) {
         super(title, description);
         this.epic = epic;
+        epic.addSubtask(this);
         epic.getSubtasks().put(getId(),this);
         setType(Type.SUBTASK);
     }
@@ -15,6 +16,7 @@ public class Subtask extends Task {
     public Subtask(String title, String description, Epic epic, LocalDateTime startTime, int duration) {
         super(title, description, startTime, duration);
         this.epic = epic;
+        epic.addSubtask(this);
         epic.getSubtasks().put(getId(),this);
         setType(Type.SUBTASK);
     }

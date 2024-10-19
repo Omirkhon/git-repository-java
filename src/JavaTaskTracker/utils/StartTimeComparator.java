@@ -3,7 +3,7 @@ package JavaTaskTracker.utils;
 import JavaTaskTracker.model.Task;
 import java.util.Comparator;
 
-public class NewComparator implements Comparator<Task> {
+public class StartTimeComparator implements Comparator<Task> {
     @Override
     public int compare(Task task1, Task task2) {
         if (task1.getStartTime() == null && task2.getStartTime() == null) {

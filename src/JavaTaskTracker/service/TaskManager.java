@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TaskManager {
-    void compareTasks();
+    public List<Task> getPrioritizedTasks();
     void removeAll();
     Map<Integer, Task> getTasks();
     Map<Integer, Epic> getEpics();

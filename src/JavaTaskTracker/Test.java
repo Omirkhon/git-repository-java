@@ -32,7 +32,7 @@ public class Test {
         subtaskTwo.setStatus(Status.NEW);
 
         Subtask subtaskThree = new Subtask("Помыть полы", " Описание подзадачи 3", epic,
-                LocalDateTime.of(2024, 7, 18, 12, 30), 60);
+                LocalDateTime.of(2024, 7, 18, 12, 45), 60);
         manager.createSubtask(subtaskThree);
         subtaskTwo.setStatus(Status.NEW);
 
@@ -52,6 +52,6 @@ public class Test {
 //        System.out.println(manager.getSubtaskById(6));
 //        System.out.println(manager.getHistory());
 
-        manager.compareTasks();
+        System.out.println(manager.getPrioritizedTasks());
     }
 }

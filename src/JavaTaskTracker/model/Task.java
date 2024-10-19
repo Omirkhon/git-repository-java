@@ -8,8 +8,8 @@ public class Task {
     private String description;
     private Status status;
     private Type type;
-    private LocalDateTime startTime;
-    private int duration;
+    LocalDateTime startTime;
+    long duration;
 
     public Task(String title, String description) {
         this.title = title;
@@ -18,7 +18,7 @@ public class Task {
         setType(Type.TASK);
     }
 
-    public Task(String title, String description, LocalDateTime startTime, int duration) {
+    public Task(String title, String description, LocalDateTime startTime, long duration) {
         this.title = title;
         this.description = description;
         this.status = Status.NEW;
@@ -35,7 +35,7 @@ public class Task {
         this.startTime = startTime;
     }
 
-    public int getDuration() {
+    public long getDuration() {
         return duration;
     }
 

@@ -1,9 +1,7 @@
 package JavaTaskTracker.model;
 
-
-import JavaTaskTracker.utils.NewComparator;
-
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Epic extends Task {
@@ -15,38 +13,35 @@ public class Epic extends Task {
         setType(Type.EPIC);
     }
 
-    @Override
-    public int getDuration() {
-        int duration = 0;
-        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
-            duration += subtask.getValue().getDuration();
-        }
-        return duration;
+    public void setDuration() {
+        this.duration = getStartTime().until(getEndTime(), ChronoUnit.MINUTES);
     }
 
     @Override
-    public LocalDateTime getStartTime() {
-        List<Task> listOfSubtasks = new ArrayList<>();
-
-        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
-            listOfSubtasks.add(subtask.getValue());
-        }
-
-        Collections.sort(listOfSubtasks, new NewComparator());
-        if (listOfSubtasks.isEmpty()) {
-            return null;
-        } else {
-            return listOfSubtasks.get(0).getStartTime();
+    public void setStartTime(LocalDateTime startTime) {
+        if (this.startTime == null || startTime.isBefore(this.startTime)) {
+            this.startTime = startTime;
         }
     }
 
     @Override
     public LocalDateTime getEndTime() {
-        return getStartTime().plusMinutes(getDuration());
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        if (this.endTime == null || endTime.isAfter(this.endTime)) {
+            this.endTime = endTime;
+        }
     }
 
     public Map<Integer, Subtask> getSubtasks() {
         return subtasks;
+    }
+
+    public void addSubtask(Subtask subtask) {
+        setStartTime(subtask.getStartTime());
+        setEndTime(subtask.getEndTime());
     }
 
     public void status(Epic epic) {

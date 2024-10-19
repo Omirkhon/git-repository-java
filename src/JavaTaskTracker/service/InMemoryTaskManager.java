@@ -1,9 +1,7 @@
 package JavaTaskTracker.service;
 
-import JavaTaskTracker.model.Epic;
-import JavaTaskTracker.model.Subtask;
-import JavaTaskTracker.model.Task;
-import JavaTaskTracker.utils.NewComparator;
+import JavaTaskTracker.model.*;
+import JavaTaskTracker.utils.StartTimeComparator;
 
 import java.util.*;
 
@@ -18,22 +16,46 @@ public class InMemoryTaskManager implements TaskManager {
         this.historyManager = historyManager;
     }
 
-    @Override
-    public void compareTasks() {
+    public List<Task> getPrioritizedTasks() {
         List<Task> listOfTasks = new ArrayList<>();
 
-        for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
-            listOfTasks.add(task.getValue());
-        }
-        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
-            listOfTasks.add(subtask.getValue());
-        }
-        for (Map.Entry<Integer, Epic> epic : epics.entrySet()) {
-            listOfTasks.add(epic.getValue());
-        }
+        listOfTasks.addAll(tasks.values());
+        listOfTasks.addAll(epics.values());
+        listOfTasks.addAll(subtasks.values());
 
-        Collections.sort(listOfTasks, new NewComparator());
-        System.out.println(listOfTasks);
+        Collections.sort(listOfTasks, new StartTimeComparator());
+        return listOfTasks;
+    }
+
+    public boolean checkIfIntersects(Task task) {
+        boolean isIntersection = true;
+        List<Task> prioritizedTasks = getPrioritizedTasks();
+
+        for (Task taskOfTheList : prioritizedTasks) {
+            if (prioritizedTasks.isEmpty()) {
+                return false;
+            } else {
+                if (task.getStartTime() == null) {
+                    isIntersection = false;
+                    break;
+                }
+                if (taskOfTheList.getStartTime() == null) {
+                    isIntersection = false;
+                    continue;
+                }
+                if (task.getType() == Type.EPIC || taskOfTheList.getType() == Type.EPIC) {
+                    isIntersection = false;
+                    continue;
+                }
+                if (task.getStartTime().isAfter(taskOfTheList.getEndTime())
+                        || task.getEndTime().isBefore(taskOfTheList.getStartTime())) {
+                    isIntersection = false;
+                } else {
+                    return true;
+                }
+            }
+        }
+        return isIntersection;
     }
 
     @Override
@@ -90,46 +112,49 @@ public class InMemoryTaskManager implements TaskManager {
         if (tasks.containsKey(id)) {
             tasks.put(id, updatedTask);
         }
+        getPrioritizedTasks();
     }
 
     @Override
     public void removeTaskById(int id) {
-        if (tasks.containsKey(id)) {
-            tasks.remove(id);
-        }
+        tasks.remove(id);
     }
 
     @Override
     public void removeEpicById(int id) {
-        if (epics.containsKey(id)) {
-            epics.remove(id);
-        }
+        epics.remove(id);
     }
 
     @Override
     public void removeSubtasksById(int id) {
-        if (subtasks.containsKey(id)) {
-            subtasks.remove(id);
-        }
+        subtasks.remove(id);
     }
 
     @Override
     public void createTask(Task task) {
         task.setId(getUniqueId());
-        tasks.put(task.getId(), task);
+        if (!checkIfIntersects(task)) {
+            tasks.put(task.getId(), task);
+        }
     }
 
     @Override
     public void createEpic(Epic epic) {
         epic.setId(getUniqueId());
-        epics.put(epic.getId(), epic);
+
+        if (!checkIfIntersects(epic)) {
+            epics.put(epic.getId(), epic);
+        }
     }
 
     @Override
     public void createSubtask(Subtask subtask) {
         subtask.setId(getUniqueId());
+
         if(epics.containsValue(subtask.getEpic())) {
-            subtasks.put(subtask.getId(), subtask);
+            if (!checkIfIntersects(subtask)) {
+                subtasks.put(subtask.getId(), subtask);
+            }
         }
     }
 
