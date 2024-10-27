@@ -18,9 +18,12 @@ order by avg(m.rating) desc;
 
 -- 3
 
-select release_year, max(rating) as rating
-from movies
-group by release_year
+select *
+from movies main
+where id in (select id from movies sub
+                       where main.release_year = sub.release_year
+                       order by sub.rating desc
+                       limit 1)
 order by release_year;
 
 -- 4
