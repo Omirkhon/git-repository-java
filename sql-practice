@@ -1,3 +1,4 @@
+select title
 from movies main
 join movies_genres mg on main.id = mg.movie_id;
 
