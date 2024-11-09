@@ -1,0 +1,16 @@
+select name from genres
+where id = (select genre_id from movies_genres
+    group by genre_id
+    order by count(*) desc
+       limit 1);
+
+select title from movies
+where release_year = (select release_year from movies
+                order by rating desc
+                limit 1);
+
+select title, release_year from movies
+where release_year = (select release_year from movies
+                      group by release_year
+                      order By count(*) desc
+                      limit 1);

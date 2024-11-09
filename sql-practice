@@ -1,0 +1,23 @@
+select title
+from movies main
+join movies_genres mg on main.id = mg.movie_id;
+
+select avg(count)
+from (select count(*) as count
+from movies_genres
+group by movie_id) as count_table;
+
+select count(*) as count
+from movies_genres
+group by movie_id;
+
+with num_of_genres_table as
+(select count(*) as genre_count
+       from movies m
+       join movies_genres mg on m.id = mg.movie_id
+       where title = 'Побег из Шоушенка'
+       group by m.id)
+select title, count(*) from movies m
+join movies_genres mg on m.id = mg.movie_id
+group by id
+having count(*) >= (select genre_count from num_of_genres_table);
