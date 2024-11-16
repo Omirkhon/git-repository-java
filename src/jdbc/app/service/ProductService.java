@@ -35,29 +35,29 @@ public class ProductService {
         System.out.print("Введите название товара: ");
         String name = scanner.nextLine();
         System.out.print("Введите цену товара: ");
-        long price = scanner.nextLong();
+        long price = Long.parseLong(scanner.nextLine());
         System.out.print("Введите ID категории: ");
-        long categoryID = scanner.nextInt();
+        long categoryID = Long.parseLong(scanner.nextLine());
 
         System.out.println(productDao.createProduct(new Product(0, name, price, categoryDao.findById(categoryID))));
     }
 
     public void updateProduct() {
         System.out.print("Введите идентификатор товара: ");
-        long id = scanner.nextLong();
+        long id = Long.parseLong(scanner.nextLine());
         System.out.print("Введите название товара: ");
         String name = scanner.nextLine();
         System.out.print("Введите цену товара: ");
-        long price = scanner.nextLong();
+        long price = Long.parseLong(scanner.nextLine());
         System.out.print("Введите ID категории: ");
-        long categoryID = scanner.nextInt();
+        long categoryID = Long.parseLong(scanner.nextLine());
 
         System.out.println(productDao.updateProduct(new Product(id, name, price, categoryDao.findById(categoryID))));
     }
 
     public void deleteProduct() {
         System.out.print("Введите идентификатор товара: ");
-        long id = scanner.nextLong();
+        long id = Long.parseLong(scanner.nextLine());
         productDao.deleteProduct(id);
     }
 }
